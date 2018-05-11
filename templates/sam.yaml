@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  edpilotcheck:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ed-pilot-check.lambda_handler
+      Runtime: python3.6
+      CodeUri: ../build
+      FunctionName: ed-pilot-check
+      Description: ed-pilot-check returns last known location of pilot from edsm.net
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /ed-pilot-check
+            Method: get
