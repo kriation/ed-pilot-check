@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">    
+    <title>Elite Dangerous: Status of Commander {{ commander }} </title>
+    <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+    <link rel="stylesheet" href="css/ed-styles.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/edScript.js"></script>
+
+</head>
+<body>
+
+<p>Commander {{ commander }} was last docked in a {{ ship }} at station {{ 
+station }} 
+roughly {{ days }} days and {{ "%.2f"|format(hours|float) }} hours ago.</p>
+
+<div class="battle-box center-block border">
+  <div>
+      <form method="POST" action="/battle.php">
+          <h2 class="text-center audiowide">Locate ED Commander</h2>
+          <input class="center-block form-control text-field" type="text" name="commander" placeholder="Commander's Name" />
+          <button class="btn btn-md btn-danger center-block" type="submit">Locate</button>
+      </form>
+  </div>
+</div>
+</div>
+
+
+
+</body>
+</html>
