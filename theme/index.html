@@ -11,33 +11,35 @@
 
 </head>
 <body>
-<!-- if result is returned show this box -->
-<div id="result" class="battle-box center-block border battle-box--alt">
-  <div class="typewriter">
-    <p>Commander {{ commander }} was last docked in a {{ ship }} at station {{ 
-    station }} 
-    roughly {{ days }} days and {{ "%.2f"|format(hours|float) }} hours ago.</p>
-  </div>
-  
-</div>
 
 <!-- always show this box -->
-<div class="battle-box center-block border">
-  <div>
-      <form method="POST" action="/battle.php">
-          <!-- change the following h2 text based on result, e.g. Locate Another ED Commander -->
-          <h2 class="text-center audiowide">Locate ED Commander</h2>
-          <div class="cursor center-block">
-            <input class="form-control text-field rq-form-element" type="text" name="commander" placeholder="Commander's Name" />
-            <i></i>
-            <button class="btn btn-md btn-danger center-block target-commander" type="submit"><span>Locate</span></button>
-          </div>
-      </form>
+<div class="col col-1">
+  <div class="skew">
+    <div id="result" class="battle-box--skew">
+      <div class="typewriter">
+        <h3>Commander {{ commander }} located!</h3>
+        <p><strong>Ship:</strong> {{ ship }}</p>
+        <p><strong>Location:</strong> {{station }}</p>
+        <p><strong>Reported</strong> {{ days }} days and {{ "%.2f"|format(hours|float) }} hours ago.</p>
+      </div>
+    </div>
   </div>
-</div>
-
-
-
+</div> <!-- /.col-sm -->
+<div class="col col-2">
+  <div class="battle-box border">
+    <div>
+        <form method="POST" action="/battle.php">
+            <!-- change the following h2 text based on result, e.g. Locate Another ED Commander -->
+            <h2 class="text-center audiowide">Locate ED Commander</h2>
+            <div class="cursor center-block">
+              <input class="form-control text-field rq-form-element" type="text" name="commander" placeholder="Commander's Name" />
+              <i></i>
+              <button class="center-block target-commander" type="submit"><span>Locate</span></button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div> <!-- /.col-sm -->
 
 </body>
 </html>
