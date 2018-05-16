@@ -7,19 +7,22 @@ TODO: add orange and brown gradients;
 
 */
 
-/* ED Styles */
+/* ED Global Styles */
 html, body {
   width: 100%;
   height: 100%;
+  box-sizing: border-box;
 }
 
 body  {
+  padding: 2% 10%;
+  margin: 0;
+  position: relative;
   color: #f89808;
   background-color: #000;
   text-align: center;
-  /*font-family: 'Audiowide', cursive;*/
   background: url(../images/bg.png) center center no-repeat;
-  padding: 2% 10%;
+  background-size: auto;
 }
 
 body::before {
@@ -35,26 +38,40 @@ body::before {
 }
 
 .col {
-  float: left;
+  /*float: left;*/
+  perspective: 600px;
+  margin: 4em auto; 
+  width: 37em;
+  transition: all 0.5s ease;
 }
 
 .col-1 {
-  width: 30%;
+  float: left;
 }
 
 .col-2 {
-  width: 60%;
+  float: right;
+  -webkit-animation: slide-in .2s ease-out;
+}
+
+.col-1,
+.col-2 {
+  width: 50%;
 }
 
 h2 {
   margin-top: 0;
 }
 
+/* input and result general theme */
+
 .battle-box {
+  margin-bottom: 20px;
   width: 400px;
   height: auto;
   background-color: #0D0D0D;
-  margin-bottom: 20px;
+  transform-style: preserve-3d;
+  transform: rotateX(-2deg) rotateY(-13deg);
 }
 
 input.text-field:placeholder-shown {
@@ -132,16 +149,6 @@ input.text-field:placeholder-shown {
   display: none;
 }
 
-@keyframes blink {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes target-commander {
-  0%   {background: rgb(66,45,31);}
-  50%  {background: rgb(13,13,13)}
-  100% {background: rgb(66,45,31);}
-}
 .target-commander {
     opacity:1;
 }
@@ -163,28 +170,23 @@ button {
   cursor: pointer;
 }
 
+/* results render theme */
+
 .typewriter {
   text-align: left;
+  font-size: 14px;
 }
 
 .typewriter p {
+  display: none;
+}
+
+p.type-me {
+  display: block;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto 4px; /* Gives that scrolling effect as the typing happens */
-  font-size: 14px;
+  margin: 0 0 4px; /* Gives that scrolling effect as the typing happens */
   animation: typing 3.5s steps(30, end);
-}
-
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #98e7ff }
 }
 
 .battle-box--skew {
@@ -194,6 +196,7 @@ button {
   position: relative;
   transform-style: preserve-3d;
   transform: rotateX(-9deg) rotateY(13deg);
+  /* old school screen lines */
   background: linear-gradient(
     to bottom,
     rgba(153, 61, 0,0.3),
@@ -214,12 +217,6 @@ button {
   font-size: 16px;
 }
 
-.skew {
-  perspective: 600px;
-  margin: 4em auto; 
-  width: 37em;
-}
-
 /* we can add this hover if we want it to straighten out the response */
 /* TODO: Discuss with kriation 
 .skew:hover,
@@ -230,7 +227,48 @@ button {
 }
 */
 
-@media only screen and (max-width: 1100px) {
+/* remove skew on focus maybe? */
+.remove-skew {
+  perspective: none;
+  transform-style: none;
+  transform: none;
+  margin: 0 auto;
+}
+
+/* keyframes for animations */
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #98e7ff }
+}
+
+/* blink for the cursor */
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* gradient for input bg */
+@keyframes target-commander {
+  0%   {background: rgb(66,45,31);}
+  50%  {background: rgb(13,13,13)}
+  100% {background: rgb(66,45,31);}
+}
+
+@keyframes slide-in {
+  0%   {-webkit-transform:translateX(100%);}
+}
+
+/* media queries */
+
+/*@media only screen and (max-width: 1100px) {
   body {
     padding: 10px;
   }
@@ -248,8 +286,8 @@ button {
     margin: 0;
   }
 }
-
-@media only screen and (max-width: 900px) {
+*/
+@media only screen and (max-width: 930px) {
   body {
     padding: 10px;
   }
@@ -264,12 +302,12 @@ button {
     margin: 10px auto;
   }
 
-  .skew,
-  .skew .battle-box--skew {
+  .col,
+  .battle-box--skew {
     perspective: none;
     transform-style: none;
     transform: none;
-    margin: 0;
+    margin: 0 auto;
   }
 
   .battle-box--skew {

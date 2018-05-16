@@ -8,38 +8,36 @@
     <link rel="stylesheet" href="css/ed-styles.css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/edScript.js"></script>
-
 </head>
 <body>
 
 <!-- always show this box -->
-<div class="col col-1">
-  <div class="skew">
-    <div id="result" class="battle-box--skew">
-      <div class="typewriter">
-        <h3>Commander {{ commander }} located!</h3>
-        <p><strong>Ship:</strong> {{ ship }}</p>
-        <p><strong>Location:</strong> {{station }}</p>
-        <p><strong>Reported</strong> {{ days }} days and {{ "%.2f"|format(hours|float) }} hours ago.</p>
-      </div>
-    </div>
-  </div>
-</div> <!-- /.col-sm -->
 <div class="col col-2">
   <div class="battle-box border">
-    <div>
-        <form method="POST" action="/battle.php">
-            <!-- change the following h2 text based on result, e.g. Locate Another ED Commander -->
-            <h2 class="text-center audiowide">Locate ED Commander</h2>
-            <div class="cursor center-block">
-              <input class="form-control text-field rq-form-element" type="text" name="commander" placeholder="Commander's Name" />
-              <i></i>
-              <button class="center-block target-commander" type="submit"><span>Locate</span></button>
-            </div>
-        </form>
+    <form method="POST" action="/battle.php">
+        <!-- change the following h2 text based on result, e.g. Locate Another ED Commander -->
+        <h2 class="text-center audiowide">Locate <span></span> ED Commander</h2>
+        <div class="cursor center-block">
+          <input class="form-control text-field rq-form-element" type="text" name="commander" placeholder="Commander's Name" />
+          <i></i>
+          <button class="center-block target-commander" type="submit"><span>Locate</span></button>
+        </div>
+    </form>
+  </div>
+</div> <!-- /.col -->
+
+<!-- conditional box -->
+<div id="result" class="col col-1">
+  <div class="battle-box--skew">
+    <div class="typewriter">
+      <h3>Commander {{ commander }} located!</h3>
+      <p><strong>Ship:</strong> {{ ship }}</p>
+      <p><strong>Location:</strong> {{station }}</p>
+      <p><strong>Reported:</strong> {{ days }} days and {{ "%.2f"|format(hours|float) }} hours ago.</p>
     </div>
   </div>
-</div> <!-- /.col-sm -->
+</div> <!-- /.col -->
+
 
 </body>
 </html>
