@@ -217,6 +217,26 @@ p.type-me {
   font-size: 16px;
 }
 
+.battle-box--skew.error {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 0, 0,0.3),
+    rgba(255, 0, 0,0.3) 50%,
+    transparent 50%,
+    transparent
+  );
+  background-size: 100% 3px;
+  height: 200px;
+}
+
+.battle-box--skew h3.error {
+  border-color: red;
+}
+
+.error {
+  color: white;
+}
+
 /* we can add this hover if we want it to straighten out the response */
 /* TODO: Discuss with kriation 
 .skew:hover,
