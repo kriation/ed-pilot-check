@@ -210,7 +210,7 @@ p.type-me {
 }
 
 .battle-box--skew h3 {
-  margin: 0 -6px 10px;
+  margin: 5px -6px 10px;
   border-top: 1px solid orange;
   border-bottom: 1px solid orange;
   padding: 4px 6px;
@@ -227,6 +227,10 @@ p.type-me {
   );
   background-size: 100% 3px;
   height: 200px;
+}
+
+.battle-box--skew h3:first {
+  margin-top: 0;
 }
 
 .battle-box--skew h3.error {

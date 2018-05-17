@@ -20,7 +20,16 @@ $(document).ready(function(){
   // $('.battle-box--skew').append('<p><strong>Ship: </strong>' + ship + '</p> <p><strong>Location: </strong>' + station + '</p><p><strong>Reported: </strong>' + time + '</p>');
 
   $('button.target-commander').click(function(e){
-    //grab the commander's name from the input field
+    getMeCommander();
+    e.preventDefault();
+  });
+
+  $('input.rq-form-element').bind("enterKey",function(e){
+    getMeCommander();
+    e.preventDefault();
+  });
+
+  function getMeCommander() {
     var commanderName = $('input.rq-form-element').val();
 
       // let there be ajax!
@@ -59,9 +68,7 @@ $(document).ready(function(){
           typeMe('.typewriter p:first');
         }
       });
-      // expected json 
-      e.preventDefault();
-  });
+  }
   // expected json response: {"ship": "Cobra MkIII", "station": "Morgue's Mortuary", "days": 7, "hours": 7.686388888888889, "commander": "kriation"}
 
   // the fancy shmancy mentioned above
