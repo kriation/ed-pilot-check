@@ -81,7 +81,7 @@ def build_response(pilot_data):
 
 def lambda_handler(event, context):
     api_key = get_api_key()
-    commander_name = event['queryStringParameters']['commander'][0]
+    commander_name = event['queryStringParameters']['commander']
     conn = http.client.HTTPSConnection('www.edsm.net')
     conn.request('GET', '/api-logs-v1/get-position?commanderName='
                  + commander_name
