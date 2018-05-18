@@ -1,0 +1,341 @@
+/*
+
+blue: 98e7ff
+orange: f89808
+alt-black: 0D0D0D
+TODO: add orange and brown gradients;
+
+*/
+
+/* ED Global Styles */
+html, body {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body  {
+  padding: 2% 10%;
+  margin: 0;
+  position: relative;
+  color: #f89808;
+  background-color: #000;
+  text-align: center;
+  background: url(../images/bg.png) center center no-repeat;
+  background-size: auto;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  z-index: -10;
+}
+
+.col {
+  /*float: left;*/
+  perspective: 600px;
+  margin: 4em auto; 
+  width: 37em;
+  transition: all 0.5s ease;
+}
+
+.col-1 {
+  float: left;
+}
+
+.col-2 {
+  float: right;
+  -webkit-animation: slide-in .2s ease-out;
+}
+
+.col-1,
+.col-2 {
+  width: 50%;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+/* input and result general theme */
+
+.battle-box {
+  margin-bottom: 20px;
+  width: 400px;
+  height: auto;
+  background-color: #0D0D0D;
+  transform-style: preserve-3d;
+  transform: rotateX(-2deg) rotateY(-13deg);
+}
+
+input.text-field:placeholder-shown {
+  color: #000;
+}
+
+.border {
+  border: 1px dashed #f89808;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.battle-box--alt {
+  color: #98e7ff;
+  margin-bottom: 40px;
+}
+
+.battle-box--alt.border {
+  border-color: #98e7ff;
+}
+
+.audiowide {
+  font-family: 'Audiowide', cursive;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  font-size: 18px;
+  box-sizing: border-box;
+  line-height: 1.42857143;
+  padding-left: 4px;
+  color: #000;
+  border: 1px solid #f9b20f;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  background: rgb(248,157,10);
+  background: linear-gradient(90deg, rgba(248,157,10,1) 0%, rgba(249,178,15,1) 85%);
+}
+
+.form-control::placeholder {
+  color: #000;
+}
+
+.cursor {
+  position: relative;
+  width: 22rem;
+}
+
+.cursor i {
+  position: absolute;
+  width: 1px;
+  height: 80%;
+  background-color: #000;
+  left: 5px;
+  top: 10%;
+  animation-name: blink;
+  animation-duration: 800ms;
+  animation-iteration-count: infinite;
+  opacity: 1;
+}
+
+.cursor input:focus + i {
+  display: none;
+}
+
+.target-commander {
+    opacity:1;
+}
+
+.target-commander:hover {
+  animation: target-commander 1s infinite;
+}
+
+button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 34px;
+  border-radius: 0 4px 4px 0;
+  background: rgb(66,45,31);
+  background: linear-gradient(180deg, rgba(66,45,31,1) 0%, rgba(122,104,92,1) 50%, rgba(66,45,31,1) 100%);
+  border: none;
+  color: orange;
+  cursor: pointer;
+}
+
+/* results render theme */
+
+.typewriter {
+  text-align: left;
+  font-size: 14px;
+}
+
+.typewriter p {
+  display: none;
+}
+
+p.type-me {
+  display: block;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 0 4px; /* Gives that scrolling effect as the typing happens */
+  animation: typing 3.5s steps(30, end);
+}
+
+.battle-box--skew {
+  padding: 0 6px;
+  width: 300px;
+  height: 400px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-9deg) rotateY(13deg);
+  /* old school screen lines */
+  background: linear-gradient(
+    to bottom,
+    rgba(153, 61, 0,0.3),
+    rgba(153, 61, 0,0.3) 50%,
+    transparent 50%,
+    transparent
+  );
+  background-size: 100% 3px;
+  font-family: arial;
+  font-weight: 200;
+}
+
+.battle-box--skew h3 {
+  margin: 5px -6px 10px;
+  border-top: 1px solid orange;
+  border-bottom: 1px solid orange;
+  padding: 4px 6px;
+  font-size: 16px;
+}
+
+.battle-box--skew.error {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 0, 0,0.3),
+    rgba(255, 0, 0,0.3) 50%,
+    transparent 50%,
+    transparent
+  );
+  background-size: 100% 3px;
+  height: 200px;
+}
+
+.battle-box--skew h3:first {
+  margin-top: 0;
+}
+
+.battle-box--skew h3.error {
+  border-color: red;
+}
+
+.error {
+  color: white;
+}
+
+/* we can add this hover if we want it to straighten out the response */
+/* TODO: Discuss with kriation 
+.skew:hover,
+.skew:hover .battle-box--skew {
+  perspective: none;
+  transform-style: none;
+  transform: none;
+}
+*/
+
+/* remove skew on focus maybe? */
+.remove-skew {
+  perspective: none;
+  transform-style: none;
+  transform: none;
+  margin: 0 auto;
+}
+
+/* keyframes for animations */
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #98e7ff }
+}
+
+/* blink for the cursor */
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* gradient for input bg */
+@keyframes target-commander {
+  0%   {background: rgb(66,45,31);}
+  50%  {background: rgb(13,13,13)}
+  100% {background: rgb(66,45,31);}
+}
+
+@keyframes slide-in {
+  0%   {-webkit-transform:translateX(100%);}
+}
+
+/* media queries */
+
+/*@media only screen and (max-width: 1100px) {
+  body {
+    padding: 10px;
+  }
+
+  .col-1,
+  .col-2 {
+    width: 40%;
+  }
+
+  .skew,
+  .skew .battle-box--skew {
+    perspective: none;
+    transform-style: none;
+    transform: none;
+    margin: 0;
+  }
+}
+*/
+@media only screen and (max-width: 930px) {
+  body {
+    padding: 10px;
+  }
+
+  .col {
+    float:none;
+  }
+
+  .col-1,
+  .col-2 {
+    width: 442px;
+    margin: 10px auto;
+  }
+
+  .col,
+  .battle-box--skew {
+    perspective: none;
+    transform-style: none;
+    transform: none;
+    margin: 0 auto;
+  }
+
+  .battle-box--skew {
+    min-width: 442px;
+    max-height: 200px;
+  }
+}
