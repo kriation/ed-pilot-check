@@ -3,22 +3,6 @@ $(document).ready(function(){
   // hide the battle-box result display
   $('.battle-box--skew').hide();
 
-  // testing purposes only
-  // $('.battle-box--skew').show();
-  // var obj = {"ship": "Cobra MkIII", "station": "Morgue's Mortuary", "days": 7, "hours": 7.686388888888889, "commander": "kriation"};
-  // console.log(obj);
-
-  // var ship = obj['ship']
-  //     station = obj['station']
-  //     commander = obj['commander']
-  //     days = obj['days']
-  //     hours = obj['hours'];
-
-  // var simpleHours = ~~hours
-  //     time = days + ' days and ' + simpleHours + ' hours ago';
-
-  // $('.battle-box--skew').append('<p><strong>Ship: </strong>' + ship + '</p> <p><strong>Location: </strong>' + station + '</p><p><strong>Reported: </strong>' + time + '</p>');
-
   $('button.target-commander').click(function(e){
     getMeCommander();
     e.preventDefault();
@@ -69,7 +53,6 @@ $(document).ready(function(){
         }
       });
   }
-  // expected json response: {"ship": "Cobra MkIII", "station": "Morgue's Mortuary", "days": 7, "hours": 7.686388888888889, "commander": "kriation"}
 
   // the fancy shmancy mentioned above
   function typeMe(el) {
