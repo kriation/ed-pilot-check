@@ -19,7 +19,7 @@ $(document).ready(function(){
       // let there be ajax!
       $.ajax({
         type: 'GET',
-        url: 'https://ivzn3c5vf1.execute-api.us-east-1.amazonaws.com/live/cmdr-info',
+        url: '{{Placeholder for API URL}},
         data: { 
             commander: commanderName,
         },
