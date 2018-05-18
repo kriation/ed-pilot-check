@@ -63,12 +63,12 @@ ifdef PREFIX
 	aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/$(PREFIX)/
 	aws lambda update-function-code --function-name edpilotcheck \
                                     --s3-bucket $(LAMBDA_BUCKET_NAME) \
-                                    --s3-key $(PREFIX)$/(VERSION).zip
+                                    --s3-key $(PREFIX)/$(VERSION).zip
 else
 	aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/
 	aws lambda update-function-code --function-name edpilotcheck \
                                     --s3-bucket $(LAMBDA_BUCKET_NAME) \
-                                    --s3-key (VERSION).zip
+                                    --s3-key $(VERSION).zip
 endif
 endif
 
