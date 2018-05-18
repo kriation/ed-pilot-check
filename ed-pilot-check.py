@@ -25,20 +25,6 @@ import boto3
 
 LOGGER = logging.getLogger()
 LOGGER.setLevel(os.environ.get('LOGGING_LEVEL', logging.INFO))
-HTML = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Elite Dangerous: Status of Commander {{ commander }} </title>
-</head>
-<body>
-Commander {{ commander }} was last docked in a {{ ship }} at station {{ 
-station }} 
-roughly {{ days }} days and {{ "%.2f"|format(hours|float) }} hours ago.
-</body>
-</html>
-"""
 
 
 def get_api_key():
@@ -65,16 +51,15 @@ def process_json(data):
 
 
 def build_response(pilot_data):
-    env = Environment(autoescape=select_autoescape(['html']))
-    template = env.from_string(HTML)
-    response_body = template.render(ship=pilot_data['last_ship'],
-                                    station=pilot_data['last_station'],
-                                    days=pilot_data['days_since'],
-                                    hours=pilot_data['hours_since'],
-                                    commander=pilot_data['commander_name'])
+    response_body = {"ship": pilot_data['last_ship'],
+                     "station": pilot_data['last_station'],
+                     "days": pilot_data['days_since'],
+                     "hours": pilot_data['hours_since'],
+                     "commander": pilot_data['commander_name']}
+
     response = {'statusCode': 200,
-                'headers': {'Content-Type': 'text/html'},
-                'body': response_body}
+                'headers': {'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps(response_body)}
 
     return response
 
