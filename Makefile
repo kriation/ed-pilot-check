@@ -16,78 +16,78 @@
 VERSION := $(shell git log | head -1 | awk '{print $$2}')
 
 build: clean
-	mkdir build
-	cp ed-pilot-check.py build
-	pip install -r requirements.txt -t build
-	cd build && zip -r ../$(VERSION).zip *
+    mkdir build
+    cp ed-pilot-check.py build
+    pip install -r requirements.txt -t build
+    cd build && zip -r ../$(VERSION).zip *
 
 deploy-static:
 ifdef STATIC_BUCKET_NAME
-	aws s3 cp theme/ s3://$(STATIC_BUCKET_NAME)/ --recursive
+    aws s3 cp theme/ s3://$(STATIC_BUCKET_NAME)/ --recursive
 endif
 
 deploy-lambda: build
 ifdef LAMBDA_BUCKET_NAME
 ifdef PREFIX
-	aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/$(PREFIX)/
+    aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/$(PREFIX)/
 else
-	aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/
+    aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/
 endif
 endif
 
 deploy-stack: deploy-lambda
 ifdef CFT_BUCKET_NAME
 ifdef PREFIX
-	$(eval PARAMETERS='[{"ParameterKey": "edsmapikey", \
-					"ParameterValue": "$(EDSM_API_KEY)"}, \
-					{"ParameterKey": "bucketname", \
-					"ParameterValue": "$(LAMBDA_BUCKET_NAME)"}, \
-					{"ParameterKey": "codepath", \
-					"ParameterValue": "$(PREFIX)/$(VERSION).zip"}]')
-	aws s3 cp templates/cft.yaml s3://$(CFT_BUCKET_NAME)/$(PREFIX)/
-	aws cloudformation create-stack --stack-name ed-pilot-check \
-		--template-url \
-		https://s3.amazonaws.com/$(CFT_BUCKET_NAME)/$(PREFIX)/cft.yaml \
-		--parameters $(PARAMETERS) \
-		--capabilities CAPABILITY_IAM
+    $(eval PARAMETERS='[{"ParameterKey": "edsmapikey", \
+                    "ParameterValue": "$(EDSM_API_KEY)"}, \
+                    {"ParameterKey": "bucketname", \
+                    "ParameterValue": "$(LAMBDA_BUCKET_NAME)"}, \
+                    {"ParameterKey": "codepath", \
+                    "ParameterValue": "$(PREFIX)/$(VERSION).zip"}]')
+    aws s3 cp templates/cft.yaml s3://$(CFT_BUCKET_NAME)/$(PREFIX)/
+    aws cloudformation create-stack --stack-name ed-pilot-check \
+        --template-url \
+        https://s3.amazonaws.com/$(CFT_BUCKET_NAME)/$(PREFIX)/cft.yaml \
+        --parameters $(PARAMETERS) \
+        --capabilities CAPABILITY_IAM
 else
-	$(eval PARAMETERS='[{"ParameterKey": "edsmapikey", \
-					"ParameterValue": "$(EDSM_API_KEY)"}, \
-					{"ParameterKey": "bucketname", \
-					"ParameterValue": "$(LAMBDA_BUCKET_NAME)"}, \
-					{"ParameterKey": "codepath", \
-					"ParameterValue": "$(VERSION).zip"}]')
-	aws s3 cp templates/cft.yaml s3://$(CFT_BUCKET_NAME)/
-	aws cloudformation create-stack --stack-name ed-pilot-check \
-		--template-url \
-		https://s3.amazonaws.com/$(CFT_BUCKET_NAME)/cft.yaml \
-		--parameters $(PARAMETERS) \
-		--capabilities CAPABILITY_IAM
+    $(eval PARAMETERS='[{"ParameterKey": "edsmapikey", \
+                    "ParameterValue": "$(EDSM_API_KEY)"}, \
+                    {"ParameterKey": "bucketname", \
+                    "ParameterValue": "$(LAMBDA_BUCKET_NAME)"}, \
+                    {"ParameterKey": "codepath", \
+                    "ParameterValue": "$(VERSION).zip"}]')
+    aws s3 cp templates/cft.yaml s3://$(CFT_BUCKET_NAME)/
+    aws cloudformation create-stack --stack-name ed-pilot-check \
+        --template-url \
+        https://s3.amazonaws.com/$(CFT_BUCKET_NAME)/cft.yaml \
+        --parameters $(PARAMETERS) \
+        --capabilities CAPABILITY_IAM
 endif
 endif
 
 update-lambda: build
 ifdef LAMBDA_BUCKET_NAME
 ifdef PREFIX
-	aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/$(PREFIX)/
-	aws lambda update-function-code --function-name edpilotcheck \
-									--s3-bucket $(LAMBDA_BUCKET_NAME) \
-									--s3-key $(PREFIX)$/(VERSION).zip
+    aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/$(PREFIX)/
+    aws lambda update-function-code --function-name edpilotcheck \
+                                    --s3-bucket $(LAMBDA_BUCKET_NAME) \
+                                    --s3-key $(PREFIX)$/(VERSION).zip
 else
-	aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/
-	aws lambda update-function-code --function-name edpilotcheck \
-									--s3-bucket $(LAMBDA_BUCKET_NAME) \
-									--s3-key (VERSION).zip
+    aws s3 cp $(VERSION).zip s3://$(LAMBDA_BUCKET_NAME)/
+    aws lambda update-function-code --function-name edpilotcheck \
+                                    --s3-bucket $(LAMBDA_BUCKET_NAME) \
+                                    --s3-key (VERSION).zip
 endif
 endif
 
 destroy-stack:
 ifdef STACK_NAME
-	aws cloudformation delete-stack --stack-name $(STACK_NAME)
+    aws cloudformation delete-stack --stack-name $(STACK_NAME)
 endif
 
 .PHONY: clean deploy-lambda deploy-cft update-lambda destroy-stack
 
 clean:
-	rm -rf build *.zip
+    rm -rf build *.zip
 
