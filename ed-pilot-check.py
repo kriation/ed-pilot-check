@@ -19,9 +19,9 @@ import http.client
 import json
 import logging
 import os
-import boto3
 from datetime import datetime
-from jinja2 import Environment, select_autoescape
+import boto3
+
 
 LOGGER = logging.getLogger()
 LOGGER.setLevel(os.environ.get('LOGGING_LEVEL', logging.INFO))
